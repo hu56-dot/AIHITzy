@@ -1,0 +1,2 @@
+torta_salata_spinaci_e_ricotta 490 642 1318 642 1318 1500 490 1500
+pasta_mare_e_monti 1667 1114 2543 1114 2543 2059 1667 2059

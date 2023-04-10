@@ -1,0 +1,183 @@
+网络选用resnet50
+改动了初始化阶段
+改动了卷积层变异形式
+调节了部分超参数
+加入了一个列表save_individual，来保存整个算法迭代过程中的最好个体
+加入了保存模型的代码
+交叉和变异分别作用于网络结构的一半
+学习率采用衰减方式，衰减率为0.99，初始为0.001
+增加了一个超参数ratio，衡量交叉和变异分别作用于网络结构的范围
+优化器SGD
+
+参数设置：
+_init_pop_size=20，
+_pop_size=4, 
+_p_crossover=0.2, 
+_p_mutation=0.2, 
+_r_mutation=0.08, 
+_max_iter=8, 
+_min_fitness=0.8,
+init_elite_num=5，
+_elite_num=1, 
+init_mating_pool_size=8，
+_mating_pool_size=4,
+_batch_size=64,
+lr=0.001,
+epoch=2,
+ratio=0.6
+
+初始化阶段：
+初始化设置种群个体数为20，经过2次GA后，选择其中的4个较好个体组成新种群（该新种群的个体数为5），
+交替训练阶段：
+然后这个新种群进入网络进行训练，再经过1次GA，如此反复交替，直到达到设定条件。
+
+初始化后，种群个体数为4，每个个体在网络中训练轮数epoch为2，整个算法最大执行次数_max_iter为8
+算法执行过程如下：
+
+Files already downloaded and verified
+Files already downloaded and verified
+Elitism GA is running...
+初始化种群阶段开始......
+cifar10 network initialization(20) finished.
+
+pop_Iter: 1
+Best_fit: {'pop': 0, 'test_accuracy': 0.125}, avg_fitness: 0.1010
+Elites: [9, 18, 16, 4, 0]
+Pairs: [[0, 10], [0, 10], [2, 18], [2, 0], [18, 10], [19, 13], [0, 13], [2, 0]]
+Cross over finished.
+Replacement finished.
+Mutation(7) finished.
+Mutation(15) finished.
+Mutation(16) finished.
+
+pop_Iter: 2
+Best_fit: {'pop': 4, 'test_accuracy': 0.125}, avg_fitness: 0.1074
+Elites: [2, 6, 12, 3, 4]
+Pairs: [[10, 16], [19, 4], [10, 10], [10, 17], [14, 19], [11, 6], [4, 14], [4, 6]]
+Cross over finished.
+Replacement finished.
+
+pop_Iter: 3
+Best_fit: {'pop': 8, 'test_accuracy': 0.162}, avg_fitness: 0.1160
+初始化结束，选择的个体分别为: [4, 16, 11, 8]
+Replacement finished.
+GA-CNN交替阶段开始......
+
+pop_Iter: 4
+Best_fit: {'pop': 2, 'test_accuracy': 0.556}, avg_fitness: 0.5240
+算法第1次迭代网络训练参数完成
+
+Elites: [2]
+Pairs: [[1, 1], [1, 1], [0, 0]]
+Cross over finished.
+Replacement finished.
+算法第1次迭代遗传算法执行完成
+
+pop_Iter: 5
+Best_fit: {'pop': 0, 'test_accuracy': 0.556}, avg_fitness: 0.5335
+算法第1次迭代完成
+
+pop_Iter: 6
+Best_fit: {'pop': 3, 'test_accuracy': 0.606}, avg_fitness: 0.6060
+算法第2次迭代网络训练参数完成
+
+Elites: [3]
+Pairs: [[1, 3], [3, 1]]
+Cross over finished.
+Replacement finished.
+Mutation(1) finished.
+算法第2次迭代遗传算法执行完成
+
+pop_Iter: 7
+Best_fit: {'pop': 0, 'test_accuracy': 0.606}, avg_fitness: 0.3175
+算法第2次迭代完成
+
+pop_Iter: 8
+Best_fit: {'pop': 0, 'test_accuracy': 0.629}, avg_fitness: 0.5402
+算法第3次迭代网络训练参数完成
+
+Elites: [0]
+Pairs: [[1, 1], [0, 0], [1, 1]]
+Cross over finished.
+Replacement finished.
+算法第3次迭代遗传算法执行完成
+
+pop_Iter: 9
+Best_fit: {'pop': 2, 'test_accuracy': 0.629}, avg_fitness: 0.5415
+算法第3次迭代完成
+
+pop_Iter: 10
+Best_fit: {'pop': 0, 'test_accuracy': 0.648}, avg_fitness: 0.5720
+算法第4次迭代网络训练参数完成
+
+Elites: [0]
+Pairs: [[1, 1], [1, 1], [1, 0]]
+Cross over finished.
+Replacement finished.
+算法第4次迭代遗传算法执行完成
+
+pop_Iter: 11
+Best_fit: {'pop': 0, 'test_accuracy': 0.648}, avg_fitness: 0.4425
+算法第4次迭代完成
+
+pop_Iter: 12
+Best_fit: {'pop': 0, 'test_accuracy': 0.673}, avg_fitness: 0.5990
+算法第5次迭代网络训练参数完成
+
+Elites: [0]
+Pairs: [[0, 2], [0, 3]]
+Cross over finished.
+Replacement finished.
+Mutation(1) finished.
+算法第5次迭代遗传算法执行完成
+
+pop_Iter: 13
+Best_fit: {'pop': 0, 'test_accuracy': 0.673}, avg_fitness: 0.2760
+算法第5次迭代完成
+
+pop_Iter: 14
+Best_fit: {'pop': 0, 'test_accuracy': 0.677}, avg_fitness: 0.5902
+算法第6次迭代网络训练参数完成
+
+Elites: [0]
+Pairs: [[1, 0], [2, 2]]
+Cross over finished.
+Replacement finished.
+Mutation(1) finished.
+算法第6次迭代遗传算法执行完成
+
+pop_Iter: 15
+Best_fit: {'pop': 0, 'test_accuracy': 0.677}, avg_fitness: 0.3662
+算法第6次迭代完成
+
+pop_Iter: 16
+Best_fit: {'pop': 2, 'test_accuracy': 0.659}, avg_fitness: 0.5950
+算法第7次迭代网络训练参数完成
+
+Elites: [2]
+Pairs: [[0, 0], [0, 0], [0, 0]]
+Cross over finished.
+Replacement finished.
+算法第7次迭代遗传算法执行完成
+
+pop_Iter: 17
+Best_fit: {'pop': 0, 'test_accuracy': 0.659}, avg_fitness: 0.6582
+算法第7次迭代完成
+
+pop_Iter: 18
+Best_fit: {'pop': 3, 'test_accuracy': 0.679}, avg_fitness: 0.6648
+算法第8次迭代网络训练参数完成
+
+Elites: [3]
+Pairs: [[0, 0], [1, 1], [0, 1]]
+Cross over finished.
+Replacement finished.
+算法第8次迭代遗传算法执行完成
+
+pop_Iter: 19
+Best_fit: {'pop': 0, 'test_accuracy': 0.679}, avg_fitness: 0.6608
+算法第8次迭代完成
+Maximum iterations(8) reached.
+算法执行过程中最好适应度为:0.6790000200271606
+最好模型已保存
+程序执行经过28.64分钟
